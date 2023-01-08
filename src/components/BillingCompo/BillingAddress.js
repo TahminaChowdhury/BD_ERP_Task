@@ -45,6 +45,7 @@ const BillingAddress = () => {
     }
   };
 
+  // District select
   const handleDistrict = (e) => {
     const [id, name] = e.target.value.split(',');
     setDivisionName(name);
@@ -60,6 +61,7 @@ const BillingAddress = () => {
     }
   };
 
+  // Sub district select
   const handleSubDistrict = (e) => {
     const [id, name] = e.target.value.split(',');
     setDistrcitName(name);
@@ -74,6 +76,7 @@ const BillingAddress = () => {
       setSubDisEnable(true);
     }
   };
+  // Union select
   const handleUnion = (e) => {
     const [id, name] = e.target.value.split(',');
     setSub_districtName(name);
@@ -88,6 +91,8 @@ const BillingAddress = () => {
       setUnionEnable(true);
     }
   };
+
+  // Union name select
   const handleUnionName = (e) => {
     const [id, name] = e.target.value.split(',');
     setUnionname(name);
@@ -103,12 +108,27 @@ const BillingAddress = () => {
       <div style={{ width: '100%', padding: '0px 50px' }}>
         <h5 style={{ marginBottom: '10px' }}>BILLING ADDRESS</h5>
         <form>
+          <div className="form-group">
+            <label className="form-label" htmlFor="name">
+              Attention
+            </label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter person/site name"
+              style={{ padding: '5px' }}
+            />
+          </div>
           {/* Country */}
           <div className="form-group">
             <label className="form-label" htmlFor="country">
               Country
             </label>
-            <select name="country" onChange={(e) => handleDivision(e)}>
+            <select
+              name="country"
+              onChange={(e) => handleDivision(e)}
+              style={{ padding: '5px' }}
+            >
               <option value="">Please Search</option>
               {countries.map((country, index) => (
                 <option
@@ -130,6 +150,7 @@ const BillingAddress = () => {
               name="division"
               disabled={enable}
               onChange={(e) => handleDistrict(e)}
+              style={{ padding: '5px' }}
             >
               <option value="">Please Search</option>
               {divisions.map((division, index) => (
@@ -149,6 +170,7 @@ const BillingAddress = () => {
               name="district"
               disabled={disEnable}
               onChange={(e) => handleSubDistrict(e)}
+              style={{ padding: '5px' }}
             >
               <option value="">Please Search</option>
               {districts.map((district, index) => (
@@ -168,6 +190,7 @@ const BillingAddress = () => {
               name="sub-district"
               disabled={subDisEnable}
               onChange={(e) => handleUnion(e)}
+              style={{ padding: '5px' }}
             >
               <option value="">Please Search</option>
               {sub_districts.map((sub_districts, index) => (
@@ -190,6 +213,7 @@ const BillingAddress = () => {
               name="unions"
               disabled={unionEnable}
               onClick={(e) => handleUnionName(e)}
+              style={{ padding: '5px' }}
             >
               <option value="">Please Search</option>
               {unions.map((unions, index) => (
@@ -205,7 +229,11 @@ const BillingAddress = () => {
             <label className="form-label" htmlFor="zipcode">
               Zipcode
             </label>
-            <select name="zipcode" disabled={zipcodeEnable}>
+            <select
+              name="zipcode"
+              disabled={zipcodeEnable}
+              style={{ padding: '5px' }}
+            >
               <option value="">Please Search</option>
             </select>
           </div>
@@ -215,7 +243,11 @@ const BillingAddress = () => {
             <label className="form-label" htmlFor="village">
               Street Address/Village
             </label>
-            <select name="village" disabled={villageEnable}>
+            <select
+              name="village"
+              disabled={villageEnable}
+              style={{ padding: '5px' }}
+            >
               <option value="">Please Search</option>
             </select>
           </div>
@@ -225,7 +257,7 @@ const BillingAddress = () => {
             <label className="form-label" htmlFor="house">
               House/Suite/Appartment no
             </label>
-            <input type="text" name="house" />
+            <input type="text" name="house" style={{ padding: '5px' }} />
           </div>
 
           {/* Phone */}
@@ -233,7 +265,12 @@ const BillingAddress = () => {
             <label className="form-label" htmlFor="phone">
               Phone
             </label>
-            <input type="number" name="phone" id="phone" />
+            <input
+              type="number"
+              name="phone"
+              id="phone"
+              style={{ padding: '5px' }}
+            />
           </div>
 
           {/* Fax */}
@@ -241,7 +278,12 @@ const BillingAddress = () => {
             <label className="form-label" htmlFor="fax">
               Fax
             </label>
-            <input type="number" name="fax" id="fax" />
+            <input
+              type="number"
+              name="fax"
+              id="fax"
+              style={{ padding: '5px' }}
+            />
           </div>
         </form>
       </div>

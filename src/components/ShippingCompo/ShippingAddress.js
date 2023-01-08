@@ -9,13 +9,6 @@ const ShippingAddress = ({
   sub_districtName,
   unionName,
 }) => {
-  console.log(
-    countryName,
-    divisionName,
-    distrcitName,
-    sub_districtName,
-    unionName
-  );
   const [countries, setCountries] = useState([]);
   const [divisions, setDivisions] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -28,12 +21,13 @@ const ShippingAddress = ({
   const [zipcodeEnable, setZipcodeEnable] = useState(true);
   const [villageEnable, setvillageEnable] = useState(true);
 
+  // Show Info
   const [show, setShow] = useState(false);
   const handleShow = () => {
-    console.log('clicked');
     setShow(true);
   };
 
+  // Country select
   useEffect(() => {
     setCountries(Country.getAllCountries());
   }, []);
@@ -43,19 +37,23 @@ const ShippingAddress = ({
     const countryId = e.target.value;
     if (countryId === 'BD' && countryId !== '') {
       axios
-        .get('https://country-state-city-server-production.up.railway.app/divisions')
+        .get(
+          'https://country-state-city-server-production.up.railway.app/divisions'
+        )
         .then((res) => setDivisions(res.data));
       setEnable(false);
     } else {
       setEnable(true);
     }
   };
-
+  // District select
   const handleDistrict = (e) => {
     const id = e.target.value;
     if (id !== '') {
       axios
-        .get(`https://country-state-city-server-production.up.railway.app/districts/${id}`)
+        .get(
+          `https://country-state-city-server-production.up.railway.app/districts/${id}`
+        )
         .then((res) => setDistricts(res.data));
       setEnable(false);
     } else {
@@ -63,22 +61,29 @@ const ShippingAddress = ({
     }
   };
 
+  // Sub district select
   const handleSubDistrict = (e) => {
     const id = e.target.value;
     if (id !== '') {
       axios
-        .get(`https://country-state-city-server-production.up.railway.app/sub_districts/${id}`)
+        .get(
+          `https://country-state-city-server-production.up.railway.app/sub_districts/${id}`
+        )
         .then((res) => setSub_districts(res.data));
       setEnable(false);
     } else {
       setEnable(true);
     }
   };
+
+  // Union select
   const handleUnion = (e) => {
     const id = e.target.value;
     if (id !== '') {
       axios
-        .get(`https://country-state-city-server-production.up.railway.app/unions/${id}`)
+        .get(
+          `https://country-state-city-server-production.up.railway.app/unions/${id}`
+        )
         .then((res) => setUnions(res.data));
       setEnable(false);
     } else {
@@ -87,19 +92,42 @@ const ShippingAddress = ({
   };
   return (
     <div>
-      <div style={{display: 'flex'}}>
-      <h5 style={{ marginBottom: '10px' }}>SHIPPING ADDRESS</h5>
-      <h5 onClick={() => handleShow()} style={{ cursor: 'pointer', paddingLeft: '10px', color: 'blueviolet', textDecoration: 'underline' }}>
-        Copy Billing Address
-      </h5>
+      <div style={{ display: 'flex' }}>
+        <h5 style={{ marginBottom: '10px' }}>SHIPPING ADDRESS</h5>
+        <h5
+          onClick={() => handleShow()}
+          style={{
+            cursor: 'pointer',
+            paddingLeft: '10px',
+            color: 'blueviolet',
+            textDecoration: 'underline',
+          }}
+        >
+          <i class="fa-solid fa-arrow-down"></i> Copy Billing Address
+        </h5>
       </div>
       <form>
+        <div className="form-group">
+          <label className="form-label" htmlFor="name">
+            Attention
+          </label>
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter person/site name"
+            style={{ padding: '5px' }}
+          />
+        </div>
         {/* Country */}
         <div className="form-group">
           <label className="form-label" htmlFor="country">
             Country
           </label>
-          <select name="country" onChange={(e) => handleDivision(e)}>
+          <select
+            name="country"
+            onChange={(e) => handleDivision(e)}
+            style={{ padding: '5px' }}
+          >
             <option value={show === true ? countryName : ''}>
               {show === true ? countryName : 'Please Select'}
             </option>
@@ -120,6 +148,7 @@ const ShippingAddress = ({
             name="division"
             disabled={show === true ? !enable : enable}
             onChange={(e) => handleDistrict(e)}
+            style={{ padding: '5px' }}
           >
             <option value={show === true ? divisionName : ''}>
               {show === true ? divisionName : 'Please Select'}
@@ -141,6 +170,7 @@ const ShippingAddress = ({
             name="district"
             disabled={show === true ? !disEnable : disEnable}
             onChange={(e) => handleSubDistrict(e)}
+            style={{ padding: '5px' }}
           >
             <option value={show === true ? distrcitName : ''}>
               {show === true ? distrcitName : 'Please Select'}
@@ -162,6 +192,7 @@ const ShippingAddress = ({
             name="sub-district"
             disabled={show === true ? !subDisEnable : subDisEnable}
             onChange={(e) => handleUnion(e)}
+            style={{ padding: '5px' }}
           >
             <option value={show === true ? sub_districtName : ''}>
               {show === true ? sub_districtName : 'Please Select'}
@@ -182,6 +213,7 @@ const ShippingAddress = ({
           <select
             name="unions"
             disabled={show === true ? !unionEnable : unionEnable}
+            style={{ padding: '5px' }}
           >
             <option value={show === true ? unionName : ''}>
               {show === true ? unionName : 'Please Select'}
@@ -199,7 +231,11 @@ const ShippingAddress = ({
           <label className="form-label" htmlFor="zipcode">
             Zipcode
           </label>
-          <select name="zipcode" disabled={zipcodeEnable}>
+          <select
+            name="zipcode"
+            disabled={zipcodeEnable}
+            style={{ padding: '5px' }}
+          >
             <option value="">Please Search</option>
           </select>
         </div>
@@ -209,7 +245,11 @@ const ShippingAddress = ({
           <label className="form-label" htmlFor="village">
             Street Address/Village
           </label>
-          <select name="village" disabled={villageEnable}>
+          <select
+            name="village"
+            disabled={villageEnable}
+            style={{ padding: '5px' }}
+          >
             <option value="">Please Search</option>
           </select>
         </div>
@@ -219,7 +259,7 @@ const ShippingAddress = ({
           <label className="form-label" htmlFor="house">
             House/Suite/Appartment no
           </label>
-          <input type="text" name="house" />
+          <input type="text" name="house" style={{ padding: '5px' }} />
         </div>
 
         {/* Phone */}
@@ -227,7 +267,12 @@ const ShippingAddress = ({
           <label className="form-label" htmlFor="phone">
             Phone
           </label>
-          <input type="number" name="phone" id="phone" />
+          <input
+            type="number"
+            name="phone"
+            id="phone"
+            style={{ padding: '5px' }}
+          />
         </div>
 
         {/* Fax */}
@@ -235,7 +280,7 @@ const ShippingAddress = ({
           <label className="form-label" htmlFor="fax">
             Fax
           </label>
-          <input type="number" name="fax" id="fax" />
+          <input type="number" name="fax" id="fax" style={{ padding: '5px' }} />
         </div>
       </form>
     </div>
